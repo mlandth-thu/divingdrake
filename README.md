@@ -1,7 +1,9 @@
 # Diving Drake
 
 ## Description
-This is a tiny java-fx application that was inspired by the famous game flappy bird.
+This is a tiny java-fx application that was inspired by the famous game flappy bird.<br>
+The drake has to swim against a hefty wind blowing from the north and has to care not to float off the map.<br>
+The drake is following the stream down the river, but must avoid logs crossing his way.
 
 You can move upwards by pressing "w" and downwards by pressing "s".
 
@@ -20,3 +22,6 @@ https://destin.itch.io/drake
 - Add Game-Over Message
 - (Add reset game)
 - tweak values
+- fix bug (fall of map with "s")
+- fix bug (move downwards while northest)
+- (add increasing difficulty with speed / spawning time / obstacles gaps ...)

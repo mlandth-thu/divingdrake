@@ -22,7 +22,7 @@ public class ObstacleController {
         this.pWidth = paneWidth;
     }
 
-    //TODO change values
+    //TODO Change values
     public ArrayList<Rectangle> createLog() {
 
         //calculate vertical gap between logs
@@ -62,7 +62,7 @@ public class ObstacleController {
 
     //TODO change values
     public void moveObstacles(ArrayList<Rectangle> obstacles){
-        double dist = -0.75;
+        double dist = -0.9;
 
         ArrayList<Rectangle> out = new ArrayList<>();
 

@@ -17,6 +17,7 @@ public class CollisionController {
      */
     public boolean checkForCollision(ArrayList<Rectangle> obstacles, Rectangle drake) {
 
+        //Check for collision
         for (Rectangle o: obstacles) {
             if (o.getBoundsInParent().intersects(drake.getBoundsInParent())) {
                 return true;

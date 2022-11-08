@@ -29,18 +29,19 @@ public class Controller implements Initializable {
     @FXML
     private Rectangle drakeView;
     @FXML
-    private Text score;
+    private Text scoreView;
 
     private int gameTime = 0;
-    private int scoreCounter = 0;
+    private int score = 0;
 
     private Drake drake;
     private ObstacleController oc;
 
     ArrayList<Rectangle> obstacles = new ArrayList<>();
 
+    //sets the time interval between spawning new obstacles
+    int spawningTime = 500;
 
-    //TODO change values
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // init pane
@@ -54,37 +55,41 @@ public class Controller implements Initializable {
         Image drakeImg = new Image(getClass().getResource("images/drake.png").toExternalForm());
         drakeView.setFill(new ImagePattern(drakeImg));
 
+        //Init main view pane
         double pHeight = 800;
         double pWidth = 1600;
 
+        //Add ObstacleController
         oc = new ObstacleController(mainPane, pHeight, pWidth);
-
+        //Create GameLoop
         loop = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 update();
             }
         };
-
-
+        //First time adding a log
         obstacles.addAll(oc.createLog());
 
+        //START the game
         loop.start();
     }
 
     //TODO
     private void update() {
         gameTime++;
+        //"windy" downforce from the north to the south
         double yDelta = 1;
         drake.moveDrake(0, yDelta);
 
+        //check if the drake has passed an obstacle
         if(obstaclePassCheck(obstacles, drakeView)){
-            scoreCounter++;
-            score.setText(String.valueOf(scoreCounter));
+            updateScore(score + 1);
         }
 
+        //move all obstacles on the pane
         oc.moveObstacles(obstacles);
-        if(gameTime % 500 == 0){
+        if(gameTime % spawningTime == 0){
             obstacles.addAll(oc.createLog());
         }
 
@@ -93,9 +98,14 @@ public class Controller implements Initializable {
         }
     }
 
+    private void updateScore(int s) {
+        score = s;
+        scoreView.setText(String.valueOf(score));
+    }
+
     //TODO
     private void resetGame() {
-
+        updateScore(0);
     }
 
     private boolean obstaclePassCheck(ArrayList<Rectangle> obstacles, Rectangle drake){

@@ -29,9 +29,10 @@ public class Drake {
     public void swim(int dir) {
         double newY = -moveDeltaY * dir;
         //check if the drake wants to swim too far north (layout is fixed, drake changes)
-        if (drake.getLayoutY() + drake.getY() <= moveDeltaY) {
+        if (dir > 0 && drake.getLayoutY() + drake.getY() <= moveDeltaY) {
             newY = -(drake.getLayoutY() + drake.getY());
         }
+        //TODO
         //check if the drake wants to swim to far south
 
         moveDrake(0, newY);

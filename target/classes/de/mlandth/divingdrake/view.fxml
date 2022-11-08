@@ -29,7 +29,7 @@
                 height="70.0"
                 width="70.0"/>
         <Text
-                fx:id="score"
+                fx:id="scoreView"
                 layoutX="40.0"
                 layoutY="80.0"
                 strokeType="OUTSIDE"
