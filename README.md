@@ -25,3 +25,6 @@ https://destin.itch.io/drake
 - fix bug (fall of map with "s")
 - fix bug (move downwards while northest)
 - (add increasing difficulty with speed / spawning time / obstacles gaps ...)
+
+## Images
+  ![plot](images/img.png)
