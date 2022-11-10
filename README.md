@@ -22,22 +22,23 @@ Sounds:
 https://freesound.org/
 
 ### Own contributions
-- changed view
-- add an image for the drake
+- modified view
+- added an image for the drake
 - added moving up and down for the drake
-- added randomized color of logs
+- added randomized shade of brown for colored logs
 - added randomized width of logs
 - added increasing moving speed of the obstacles 
 - added increasing spawning speed of the obstacles 
 - added swim sound
 - added collision sound (incl playing limiter)
+- added southern vertical map bound for drake
 - removed unnecessary features / code
 
 
 ## TODO
-- Add diving capability for drake
+- (Add diving capability for drake)
 - (add diving animation)
-- Add more obstacles apart from logs (e.g. rocks)
+- (Add more obstacles apart from logs (e.g. rocks))
 - tweak values
 
 ## Images
