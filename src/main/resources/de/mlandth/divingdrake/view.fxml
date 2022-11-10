@@ -9,12 +9,12 @@
             xmlns="http://javafx.com/javafx/15.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.mlandth.divingdrake.Controller"
-            maxHeight="800.0"
-            maxWidth="1600.0"
-            minHeight="800.0"
-            minWidth="-Infinity"
-            prefHeight="800.0"
-            prefWidth="1600.0"
+            maxHeight="900.0"
+            maxWidth="1800.0"
+            minHeight="900.0"
+            minWidth="1800"
+            prefHeight="900.0"
+            prefWidth="1800.0"
             onKeyPressed="#pressed"
 >
     <children>
@@ -30,7 +30,7 @@
                 width="70.0"/>
         <Text
                 fx:id="scoreView"
-                layoutX="40.0"
+                layoutX="30.0"
                 layoutY="80.0"
                 strokeType="OUTSIDE"
                 strokeWidth="0.0"

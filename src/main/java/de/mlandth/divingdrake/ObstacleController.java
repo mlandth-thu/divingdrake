@@ -14,23 +14,33 @@ public class ObstacleController {
     private double pHeight;
     private double pWidth;
 
+    //TODO tweak moving values
+    /**
+     * This value defines how much an obstacle is moving in one step.
+     * Default: 1 px per step. | Negative because moving to the left
+     */
+    private double dist = 1.0;
+    private final double distFactor = 0.05;
+    private final double minDist = 5.0;
+    private final double orgDist = 1.0;
+
     Random r = new Random();
 
-    public ObstacleController(AnchorPane obsPane, double paneHeight, double paneWidth) {
+    public ObstacleController(AnchorPane obsPane, double paneHeight, double paneWidth, double moveDistance) {
         this.obsPane = obsPane;
         this.pHeight = paneHeight;
         this.pWidth = paneWidth;
+        this.dist = moveDistance;
     }
 
     //TODO Change values
-    public ArrayList<Rectangle> createLog() {
+    public ArrayList<Rectangle> createLog(double obsX) {
 
         //calculate vertical gap between logs
-        int low = 150;
+        int low = 170;
         int high = 220;
         //randomized vertical gap
         double gap = r.nextInt(high-low)+low;
-        double obsX = pWidth;
 
         //values for calculating log position
         //randomized log with
@@ -62,7 +72,6 @@ public class ObstacleController {
 
     //TODO change values
     public void moveObstacles(ArrayList<Rectangle> obstacles){
-        double dist = -0.9;
 
         ArrayList<Rectangle> out = new ArrayList<>();
 
@@ -78,6 +87,16 @@ public class ObstacleController {
     }
 
     private void moveRectX(Rectangle rect, double dist){
-        rect.setX(rect.getX() + dist);
+        rect.setX(rect.getX() - dist);
+    }
+
+    public void incMovingDistance() {
+        dist += distFactor;
+        //ugly debug
+        //System.out.println("moving distance: "+dist+"[px]");
+    }
+
+    public void resetMovingDistance() {
+        dist = orgDist;
     }
 }

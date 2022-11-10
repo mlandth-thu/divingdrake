@@ -31,6 +31,9 @@ public class Controller implements Initializable {
     @FXML
     private Text scoreView;
 
+    private final double pHeight = 900;
+    private final double pWidth = 1800;
+
     private int gameTime = 0;
     private int score = 0;
 
@@ -40,7 +43,10 @@ public class Controller implements Initializable {
     ArrayList<Rectangle> obstacles = new ArrayList<>();
 
     //sets the time interval between spawning new obstacles
-    int spawningTime = 500;
+    private int spawningTime = 500;
+    private final int minSpawningTime = 400;
+    private final int orgSpawningTime = 500;
+    private final int spawnFactor = 5;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,12 +61,8 @@ public class Controller implements Initializable {
         Image drakeImg = new Image(getClass().getResource("images/drake.png").toExternalForm());
         drakeView.setFill(new ImagePattern(drakeImg));
 
-        //Init main view pane
-        double pHeight = 800;
-        double pWidth = 1600;
-
         //Add ObstacleController
-        oc = new ObstacleController(mainPane, pHeight, pWidth);
+        oc = new ObstacleController(mainPane, pHeight, pWidth, 0.9);
         //Create GameLoop
         loop = new AnimationTimer() {
             @Override
@@ -68,8 +70,10 @@ public class Controller implements Initializable {
                 update();
             }
         };
-        //First time adding a log
-        obstacles.addAll(oc.createLog());
+        //First time adding obstacles
+        obstacles.addAll(oc.createLog(pWidth * 0.75));
+        obstacles.addAll(oc.createLog(pWidth * 0.5));
+        obstacles.addAll(oc.createLog(pWidth));
 
         //START the game
         loop.start();
@@ -90,7 +94,9 @@ public class Controller implements Initializable {
         //move all obstacles on the pane
         oc.moveObstacles(obstacles);
         if(gameTime % spawningTime == 0){
-            obstacles.addAll(oc.createLog());
+            obstacles.addAll(oc.createLog(pWidth));
+            oc.incMovingDistance();
+            decSpawningTime();
         }
 
         if(drake.checkDeath(obstacles, mainPane)){
@@ -104,8 +110,14 @@ public class Controller implements Initializable {
     }
 
     //TODO
+
+    /**
+     * Defines what happens when the game is reset.
+     */
     private void resetGame() {
         updateScore(0);
+        spawningTime = orgSpawningTime;
+        oc.resetMovingDistance();
     }
 
     private boolean obstaclePassCheck(ArrayList<Rectangle> obstacles, Rectangle drake){
@@ -118,9 +130,9 @@ public class Controller implements Initializable {
         return false;
     }
 
-    //TODO
+    //TODO add diving to keys
     @FXML
-    void pressed(KeyEvent event) {
+    private void pressed(KeyEvent event) {
         if(event.getCode() == KeyCode.SPACE){
             //dive
             //drake.dive();
@@ -129,6 +141,19 @@ public class Controller implements Initializable {
         } else if (event.getCode() == KeyCode.S) {
             drake.swim(-1);
         }
+    }
+
+    /**
+     * Decreases the time interval between spawning a new obstacle
+     */
+    private void decSpawningTime() {
+        if(spawningTime >= minSpawningTime + spawnFactor) {
+            spawningTime -= spawnFactor;
+        } else {
+            spawningTime = minSpawningTime;
+        }
+        //ugly debug
+        //System.out.println("spawning time: "+spawningTime+"[ms]");
     }
 
 }
