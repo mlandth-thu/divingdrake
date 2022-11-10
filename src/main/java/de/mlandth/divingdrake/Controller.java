@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -39,6 +40,13 @@ public class Controller implements Initializable {
 
     private Drake drake;
     private ObstacleController oc;
+    private Media md;
+    //https://freesound.org/people/gt.torre/sounds/470931/
+    private AudioClip swimAudio;
+    //https://freesound.org/people/InspectorJ/sounds/398719/
+    private AudioClip diveAudio;
+    //https://freesound.org/people/Michel88/sounds/76971/
+    private AudioClip deathAudio;
 
     ArrayList<Rectangle> obstacles = new ArrayList<>();
 
@@ -46,7 +54,9 @@ public class Controller implements Initializable {
     private int spawningTime = 500;
     private final int minSpawningTime = 400;
     private final int orgSpawningTime = 500;
-    private final int spawnFactor = 5;
+    private final int spawnFactor = 10;
+
+    private int interval = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,6 +73,12 @@ public class Controller implements Initializable {
 
         //Add ObstacleController
         oc = new ObstacleController(mainPane, pHeight, pWidth, 0.9);
+        //Add Media
+        md = new Media();
+        swimAudio = md.getMedia("sounds/swim.wav");
+        diveAudio = md.getMedia("sounds/dive.wav");
+        deathAudio = md.getMedia("sounds/death.wav");
+
         //Create GameLoop
         loop = new AnimationTimer() {
             @Override
@@ -82,6 +98,7 @@ public class Controller implements Initializable {
     //TODO
     private void update() {
         gameTime++;
+        interval++;
         //"windy" downforce from the north to the south
         double yDelta = 1;
         drake.moveDrake(0, yDelta);
@@ -109,12 +126,11 @@ public class Controller implements Initializable {
         scoreView.setText(String.valueOf(score));
     }
 
-    //TODO
-
     /**
      * Defines what happens when the game is reset.
      */
     private void resetGame() {
+        playDeathSound();
         updateScore(0);
         spawningTime = orgSpawningTime;
         oc.resetMovingDistance();
@@ -138,8 +154,10 @@ public class Controller implements Initializable {
             //drake.dive();
         } else if (event.getCode() == KeyCode.W) {
             drake.swim(1);
+            md.playMedia(swimAudio);
         } else if (event.getCode() == KeyCode.S) {
             drake.swim(-1);
+            md.playMedia(swimAudio);
         }
     }
 
@@ -154,6 +172,16 @@ public class Controller implements Initializable {
         }
         //ugly debug
         //System.out.println("spawning time: "+spawningTime+"[ms]");
+    }
+
+    /**
+     * responsible for playing the death sound only once
+     */
+    private void playDeathSound() {
+        if(interval > 200) {
+            md.playMedia(deathAudio);
+            interval = 0;
+        }
     }
 
 }
