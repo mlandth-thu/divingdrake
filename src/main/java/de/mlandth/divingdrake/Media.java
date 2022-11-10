@@ -12,6 +12,7 @@ public class Media {
     }
 
     public void playMedia(AudioClip media) {
+        media.setVolume(0.2);
         media.play();
     }
 }

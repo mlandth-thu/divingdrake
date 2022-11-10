@@ -39,7 +39,6 @@ https://freesound.org/
 - (add diving animation)
 - Add more obstacles apart from logs (e.g. rocks)
 - tweak values
-- fix bug (falling of the map with "s")
 
 ## Images
   ![plot](images/img.png)

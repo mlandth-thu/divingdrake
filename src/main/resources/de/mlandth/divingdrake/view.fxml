@@ -21,8 +21,8 @@
         <Rectangle
                 fx:id="drakeView"
                 fill="#fcba03"
-                layoutX="75.0"
-                layoutY="150.0"
+                layoutX="100.0"
+                layoutY="300.0"
                 stroke="BLACK"
                 strokeType="INSIDE"
                 strokeWidth="0.0"

@@ -66,7 +66,7 @@ public class Controller implements Initializable {
 
         //Create Drake
         double moveDelta = 75;
-        drake = new Drake(drakeView,moveDelta, moveDelta);
+        drake = new Drake(drakeView, moveDelta, moveDelta);
         //Create Drake view
         Image drakeImg = new Image(getClass().getResource("images/drake.png").toExternalForm());
         drakeView.setFill(new ImagePattern(drakeImg));
@@ -138,8 +138,8 @@ public class Controller implements Initializable {
 
     private boolean obstaclePassCheck(ArrayList<Rectangle> obstacles, Rectangle drake){
         for (Rectangle r: obstacles) {
-            int birdPositionX = (int) (drake.getLayoutX() + drake.getX());
-            if(((int)(r.getLayoutX() + r.getX()) == birdPositionX)){
+            int drakeX = (int) (drake.getLayoutX() + drake.getX());
+            if(((int)(r.getLayoutX() + r.getX()) == drakeX)){
                 return true;
             }
         }
