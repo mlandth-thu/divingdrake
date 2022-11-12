@@ -22,8 +22,7 @@ public class Drake {
     }
 
     /**
-     * Let the drake swim
-     *
+     * Let the drake swim |
      * Only on y axis for now
      */
     public void swim(int dir) {
@@ -56,7 +55,7 @@ public class Drake {
      * @param obstacles
      * @param pane
      * @return
-     * TODO this has to go somewhere else
+     * TODO maye this has to go somewhere else? -> Log.java
      */
     public boolean checkDeath(ArrayList<Rectangle> obstacles, AnchorPane pane) {
         double posY = drake.getLayoutY() + drake.getY();

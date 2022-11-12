@@ -116,6 +116,7 @@ public class Controller implements Initializable {
             decSpawningTime();
         }
 
+        //Check if the drakes collides and so is dead
         if(drake.checkDeath(obstacles, mainPane)){
             resetGame();
         }
@@ -136,6 +137,7 @@ public class Controller implements Initializable {
         oc.resetMovingDistance();
     }
 
+    //uses the javafx built in obstacle collision check
     private boolean obstaclePassCheck(ArrayList<Rectangle> obstacles, Rectangle drake){
         for (Rectangle r: obstacles) {
             int drakeX = (int) (drake.getLayoutX() + drake.getX());

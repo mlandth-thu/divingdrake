@@ -28,6 +28,7 @@ public class Main extends Application {
 
         //Show view
         stage.setTitle("Diving drake");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

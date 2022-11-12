@@ -32,6 +32,7 @@ https://freesound.org/
 - added swim sound
 - added collision sound (incl playing limiter)
 - added southern vertical map bound for drake
+- added comments for most of the code
 - removed unnecessary features / code
 
 

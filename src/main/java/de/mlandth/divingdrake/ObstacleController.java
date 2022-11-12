@@ -33,7 +33,13 @@ public class ObstacleController {
         this.dist = moveDistance;
     }
 
-    //TODO Change values
+    //TODO Tweak values
+
+    /**
+     * Creates a log
+     * @param obsX
+     * @return
+     */
     public ArrayList<Rectangle> createLog(double obsX) {
 
         //calculate vertical gap between logs
@@ -70,7 +76,10 @@ public class ObstacleController {
         return new ArrayList<>(Arrays.asList(obsNorth,obsSouth));
     }
 
-    //TODO change values
+    /**
+     * Updates the position of obstacles
+     * @param obstacles
+     */
     public void moveObstacles(ArrayList<Rectangle> obstacles){
 
         ArrayList<Rectangle> out = new ArrayList<>();
@@ -86,16 +95,27 @@ public class ObstacleController {
         obsPane.getChildren().removeAll(out);
     }
 
+    /**
+     * Moves an obstacle
+     * @param rect obstacle
+     * @param dist distance to move
+     */
     private void moveRectX(Rectangle rect, double dist){
         rect.setX(rect.getX() - dist);
     }
 
+    /**
+     * Increases the distance when updating the position of an obstacle
+     */
     public void incMovingDistance() {
         dist += distFactor;
         //ugly debug
         //System.out.println("moving distance: "+dist+"[px]");
     }
 
+    /**
+     * Resets the current moving distance to the original distance
+     */
     public void resetMovingDistance() {
         dist = orgDist;
     }
