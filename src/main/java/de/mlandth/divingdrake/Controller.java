@@ -54,7 +54,7 @@ public class Controller implements Initializable {
     private int spawningTime = 500;
     private final int minSpawningTime = 400;
     private final int orgSpawningTime = 500;
-    private final int spawnFactor = 10;
+    private final int spawnFactor = 5;
 
     private int interval = 0;
     private int rockCounter = 0;
@@ -113,7 +113,7 @@ public class Controller implements Initializable {
 
         //move all obstacles on the pane
         oc.moveObstacles(obstacles);
-        if(gameTime % spawningTime == 0) {
+        if(checkInterval() && gameTime % spawningTime == 0) {
             //create new Log
             obstacles.addAll(oc.createLog(pWidth));
 
@@ -148,6 +148,7 @@ public class Controller implements Initializable {
         playDeathSound();
         updateScore(0);
         spawningTime = orgSpawningTime;
+        interval = -300;
         rockCounter = 0;
         oc.resetMovingDistance();
     }

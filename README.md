@@ -18,6 +18,9 @@ https://github.com/Da9el00/FlappyBirdJavaFX
 Drake image:
 https://destin.itch.io/drake
 
+Rock image:
+https://toppng.com/show_download/226268/rock-rock-pixel-art
+
 Sounds:
 https://freesound.org/
 
@@ -32,6 +35,8 @@ https://freesound.org/
 - added swim sound
 - added collision sound (incl playing limiter)
 - added southern vertical map bound for drake
+- added rocks
+- added time interval after reset until increasing the score again
 - added comments for most of the code
 - removed unnecessary features / code
 
@@ -39,8 +44,8 @@ https://freesound.org/
 ## TODO
 - (Add diving capability for drake)
 - (add diving animation)
-- (Add more obstacles apart from logs (e.g. rocks))
 - tweak values
+- fix bug: score doesnt update always
 
 ## Images
   ![plot](images/img.png)

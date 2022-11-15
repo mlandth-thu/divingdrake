@@ -1,7 +1,9 @@
 package de.mlandth.divingdrake;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -78,18 +80,23 @@ public class ObstacleController {
 
     public ArrayList<Rectangle> createRock(double obsX) {
         //dimension of rock
-        double size = 100.0;
+        double rockWidth = 90.0;
+        double rockHeight = 63.0;
 
         //position of rock
         double rockX = obsX;
         double rockY = r.nextInt(550 - 350) +350;
 
         //rock view
-        Rectangle rock = new Rectangle(rockX, rockY, size, size);
+        Rectangle rock = new Rectangle(rockX, rockY, rockWidth, rockHeight);
 
         int rockRGB = r.nextInt(169-105)+105;
         Color rockColor = Color.rgb(rockRGB, rockRGB, rockRGB, 1.0);
         rock.setFill(rockColor);
+
+        //Create rock view
+        Image rockImg = new Image(getClass().getResource("images/rock.png").toExternalForm());
+        rock.setFill(new ImagePattern(rockImg));
 
         //Adding rock to view
         obsPane.getChildren().addAll(rock);
