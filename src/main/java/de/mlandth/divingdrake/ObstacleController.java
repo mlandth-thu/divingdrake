@@ -36,7 +36,6 @@ public class ObstacleController {
     }
 
     //TODO Tweak values
-
     /**
      * Creates a log
      * @param obsX
@@ -45,8 +44,9 @@ public class ObstacleController {
     public ArrayList<Rectangle> createLog(double obsX) {
 
         //calculate vertical gap between logs
+        //drake: 70 + 60 = 130
         int low = 170;
-        int high = 220;
+        int high = 240;
         //randomized vertical gap
         double gap = r.nextInt(high-low)+low;
 

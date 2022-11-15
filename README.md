@@ -45,7 +45,6 @@ https://freesound.org/
 - (Add diving capability for drake)
 - (add diving animation)
 - tweak values
-- fix bug: score doesnt update always
 
 ## Images
   ![plot](images/img.png)

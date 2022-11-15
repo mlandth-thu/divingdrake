@@ -56,7 +56,12 @@ public class Controller implements Initializable {
     private final int orgSpawningTime = 500;
     private final int spawnFactor = 5;
 
-    private int interval = 0;
+    private int spawnInterval = 0;
+    private int scoreInterval = 0;
+    private int soundInterval = 0;
+    private int checkInterval = 0;
+    private int moveInterval = 0;
+
     private int rockCounter = 0;
 
     @Override
@@ -66,7 +71,7 @@ public class Controller implements Initializable {
         mainPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 
         //Create Drake
-        double moveDelta = 75;
+        double moveDelta = 60;
         drake = new Drake(drakeView, moveDelta, moveDelta);
         //Create Drake view
         Image drakeImg = new Image(getClass().getResource("images/drake.png").toExternalForm());
@@ -99,26 +104,27 @@ public class Controller implements Initializable {
     //TODO
     private void update() {
         gameTime++;
-        interval++;
+        incIntervals();
         //"windy" downforce from the north to the south
         double yDelta = 1;
         drake.moveDrake(0, yDelta);
 
         //check if the drake has passed an obstacle
         if(obstaclePassCheck(obstacles, drakeView)){
-            if (checkInterval()) {
+            if (scoreInterval > 200 && checkInterval > 50) {
                 updateScore(score + 1);
+                checkInterval = 0;
             }
         }
 
         //move all obstacles on the pane
         oc.moveObstacles(obstacles);
-        if(checkInterval() && gameTime % spawningTime == 0) {
+        if(spawnInterval > 200 && gameTime % spawningTime == 0) {
             //create new Log
             obstacles.addAll(oc.createLog(pWidth));
 
             //create new Rock
-            if (rockCounter % 6 == 5) {
+            if (rockCounter % 5 == 4) {
                 obstacles.addAll(oc.createRock(pWidth + 150));
                 oc.incMovingDistance();
                 decSpawningTime();
@@ -145,19 +151,27 @@ public class Controller implements Initializable {
      * Defines what happens when the game is reset.
      */
     private void resetGame() {
+        //Play death sound && soundInterval = 0
         playDeathSound();
+        //Resets score && scoreInterval = 0
         updateScore(0);
+        scoreInterval = 0;
+        //Resets spawning values
         spawningTime = orgSpawningTime;
-        interval = -300;
+        spawnInterval = -100;
         rockCounter = 0;
+        //Resets moving distance for obstacles
         oc.resetMovingDistance();
     }
 
     //uses the javafx built in obstacle collision check
     private boolean obstaclePassCheck(ArrayList<Rectangle> obstacles, Rectangle drake){
         for (Rectangle r: obstacles) {
-            int drakeX = (int) (drake.getLayoutX() + drake.getX());
-            if(((int)(r.getLayoutX() + r.getX()) == drakeX)){
+            double drakeX = drake.getLayoutX() + drake.getX();
+            double obstacleX = r.getLayoutX() + r.getX();
+            double lowerBound = drakeX - 2;
+            double higherBound = drakeX + 2;
+            if(lowerBound <= obstacleX && obstacleX <= higherBound){
                 return true;
             }
         }
@@ -167,15 +181,18 @@ public class Controller implements Initializable {
     //TODO add diving to keys
     @FXML
     private void pressed(KeyEvent event) {
-        if(event.getCode() == KeyCode.SPACE){
-            //dive
-            //drake.dive();
-        } else if (event.getCode() == KeyCode.W) {
-            drake.swim(1);
-            md.playMedia(swimAudio);
-        } else if (event.getCode() == KeyCode.S) {
-            drake.swim(-1);
-            md.playMedia(swimAudio);
+        if(moveInterval > 10) {
+            if(event.getCode() == KeyCode.SPACE){
+                //dive
+                //drake.dive();
+            } else if (event.getCode() == KeyCode.W) {
+                drake.swim(1);
+                md.playMedia(swimAudio);
+            } else if (event.getCode() == KeyCode.S) {
+                drake.swim(-1);
+                md.playMedia(swimAudio);
+            }
+            moveInterval = 0;
         }
     }
 
@@ -196,14 +213,18 @@ public class Controller implements Initializable {
      * responsible for playing the death sound only once
      */
     private void playDeathSound() {
-        if (checkInterval()) {
+        if (soundInterval > 200) {
             md.playMedia(deathAudio);
-            interval = 0;
+            soundInterval = 0;
         }
     }
 
-    private Boolean checkInterval() {
-        return (interval > 200);
+    private void incIntervals() {
+        spawnInterval++;
+        soundInterval++;
+        scoreInterval++;
+        checkInterval++;
+        moveInterval++;
     }
 
 }
