@@ -40,6 +40,7 @@ https://freesound.org/
 - added time interval after reset until increasing the score again
 - added time interval for moving the drake
 - added comments for most of the code
+- added pause / unpause function to gameloop
 - removed unnecessary features / code
 
 

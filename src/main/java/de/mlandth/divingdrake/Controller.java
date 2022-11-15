@@ -23,7 +23,8 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    AnimationTimer loop;
+    private AnimationTimer loop;
+    private boolean pause = false;
 
     @FXML
     public AnchorPane mainPane;
@@ -101,7 +102,6 @@ public class Controller implements Initializable {
         loop.start();
     }
 
-    //TODO
     private void update() {
         gameTime++;
         incIntervals();
@@ -181,18 +181,27 @@ public class Controller implements Initializable {
     //TODO add diving to keys
     @FXML
     private void pressed(KeyEvent event) {
-        if(moveInterval > 10) {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            if (pause) {
+                loop.start();
+            } else {
+                loop.stop();
+            }
+            pause = !pause;
+        }
+        else if(moveInterval > 7) {
             if(event.getCode() == KeyCode.SPACE){
                 //dive
                 //drake.dive();
             } else if (event.getCode() == KeyCode.W) {
                 drake.swim(1);
                 md.playMedia(swimAudio);
+                moveInterval = 0;
             } else if (event.getCode() == KeyCode.S) {
                 drake.swim(-1);
                 md.playMedia(swimAudio);
+                moveInterval = 0;
             }
-            moveInterval = 0;
         }
     }
 
