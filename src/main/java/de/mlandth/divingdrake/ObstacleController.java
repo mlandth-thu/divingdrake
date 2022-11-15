@@ -50,30 +50,51 @@ public class ObstacleController {
 
         //values for calculating log position
         //randomized log with
-        int obsWidth = r.nextInt(70-50)+50;
+        int logWidth = r.nextInt(70-50)+50;
         double offset = pHeight / 2;
 
         //calculate randomized positions for new log
-        int logNorth = r.nextInt((int)(offset)) + (100);
-        int logSouth = (int) (pHeight - gap - logNorth);
+        int logNorthY = r.nextInt((int)(offset)) + (100);
+        int logSouthY = (int) (pHeight - gap - logNorthY);
 
         //create new log
-        Rectangle obsNorth = new Rectangle(obsX, 0, obsWidth, logNorth);
-        Rectangle obsSouth = new Rectangle(obsX, logNorth + gap, obsWidth, logSouth);
+        Rectangle logNorth = new Rectangle(obsX, 0, logWidth, logNorthY);
+        Rectangle logSouth = new Rectangle(obsX, logNorthY + gap, logWidth, logSouthY);
 
         //set randomized brown color of log
-        int red = r.nextInt(110-90)+90;
-        int green = r.nextInt(70-50)+50;
-        int blue = r.nextInt(40-20)+20;
+        int logR = r.nextInt(110-90)+90;
+        int logG = r.nextInt(70-50)+50;
+        int logB = r.nextInt(40-20)+20;
 
-        Color logColor = Color.rgb(red, green, blue, 1.0);
-        obsNorth.setFill(logColor);
-        obsSouth.setFill(logColor);
+        Color logColor = Color.rgb(logR, logG, logB, 1.0);
+        logNorth.setFill(logColor);
+        logSouth.setFill(logColor);
 
         //Adding logs to the view
-        obsPane.getChildren().addAll(obsNorth, obsSouth);
+        obsPane.getChildren().addAll(logNorth, logSouth);
         //Adding logs for collision
-        return new ArrayList<>(Arrays.asList(obsNorth,obsSouth));
+        return new ArrayList<>(Arrays.asList(logNorth,logSouth));
+    }
+
+    public ArrayList<Rectangle> createRock(double obsX) {
+        //dimension of rock
+        double size = 100.0;
+
+        //position of rock
+        double rockX = obsX;
+        double rockY = r.nextInt(550 - 350) +350;
+
+        //rock view
+        Rectangle rock = new Rectangle(rockX, rockY, size, size);
+
+        int rockRGB = r.nextInt(169-105)+105;
+        Color rockColor = Color.rgb(rockRGB, rockRGB, rockRGB, 1.0);
+        rock.setFill(rockColor);
+
+        //Adding rock to view
+        obsPane.getChildren().addAll(rock);
+        //Adding rock for collision
+        return new ArrayList<>(Arrays.asList(rock));
     }
 
     /**

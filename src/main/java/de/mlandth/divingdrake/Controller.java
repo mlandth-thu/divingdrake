@@ -57,6 +57,7 @@ public class Controller implements Initializable {
     private final int spawnFactor = 10;
 
     private int interval = 0;
+    private int rockCounter = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,15 +106,28 @@ public class Controller implements Initializable {
 
         //check if the drake has passed an obstacle
         if(obstaclePassCheck(obstacles, drakeView)){
-            updateScore(score + 1);
+            if (checkInterval()) {
+                updateScore(score + 1);
+            }
         }
 
         //move all obstacles on the pane
         oc.moveObstacles(obstacles);
-        if(gameTime % spawningTime == 0){
+        if(gameTime % spawningTime == 0) {
+            //create new Log
             obstacles.addAll(oc.createLog(pWidth));
+
+            //create new Rock
+            if (rockCounter % 6 == 5) {
+                obstacles.addAll(oc.createRock(pWidth + 150));
+                oc.incMovingDistance();
+                decSpawningTime();
+            }
+
+            //increase difficulty
             oc.incMovingDistance();
             decSpawningTime();
+            rockCounter++;
         }
 
         //Check if the drakes collides and so is dead
@@ -134,6 +148,7 @@ public class Controller implements Initializable {
         playDeathSound();
         updateScore(0);
         spawningTime = orgSpawningTime;
+        rockCounter = 0;
         oc.resetMovingDistance();
     }
 
@@ -180,10 +195,14 @@ public class Controller implements Initializable {
      * responsible for playing the death sound only once
      */
     private void playDeathSound() {
-        if(interval > 200) {
+        if (checkInterval()) {
             md.playMedia(deathAudio);
             interval = 0;
         }
+    }
+
+    private Boolean checkInterval() {
+        return (interval > 200);
     }
 
 }
