@@ -36,15 +36,19 @@ https://freesound.org/
 - added collision sound (incl playing limiter)
 - added southern vertical map bound for drake
 - added rocks
+- added image for rocks
 - added time interval after reset until increasing the score again
+- added time interval for moving the drake
 - added comments for most of the code
 - removed unnecessary features / code
 
 
 ## TODO
+
+### Nice to have
 - (Add diving capability for drake)
 - (add diving animation)
-- tweak values
+- (tweak values)
 
 ## Images
   ![plot](images/img.png)
